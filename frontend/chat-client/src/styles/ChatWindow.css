@@ -1,0 +1,54 @@
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  /* Base style for all messages */
+  .message {
+    display: flex;
+    align-items: flex-start;
+    background-color: #2f3136;
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: white;
+    max-width: 60%;
+  }
+  
+  /* Style for messages sent by the current user */
+  .message.self {
+    align-self: flex-start;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    justify-content: flex-start;
+    background-color: #2f3136;
+  }
+  
+  /* Optional: style messages from others to appear differently */
+  .message.other {
+    align-self: flex-start;
+    background-color: #36393f;
+  }
+  
+  /* Avatar styling */
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #7289da;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  /* Message content layout */
+  .message-content {
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+  }
+  

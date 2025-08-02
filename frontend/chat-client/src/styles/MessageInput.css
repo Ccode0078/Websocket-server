@@ -1,0 +1,45 @@
+.message-input-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #1f1f1f;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #333;
+    margin-top: 1rem;
+  }
+  
+  .message-input-field {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border-radius: 20px;
+    border: none;
+    background-color: #2d2d2d;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+  }
+  
+  .message-send-button {
+    background-color: #baec32cb;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .message-send-button:hover {
+    /* background-color: #0047cc; */
+    background-color: #baec32cc;;
+  }
+  
+  .message.self {
+    background-color: #5865f2; /* Discord blurple */
+    color: white;
+    text-align: left;
+    margin-left: auto;
+  }
+   

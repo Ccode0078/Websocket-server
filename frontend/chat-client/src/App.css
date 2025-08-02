@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  background-color: rgb(13, 12, 12) !important;
+
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+.chat-window {
+  height: 300px;
+  overflow-y: scroll;
+  border: 1px solid gray;
+  padding: 1rem;
+  margin-bottom: 3rem;
+  background-color: rgba(255, 255, 255, 0.08); /* Light white tint */
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+}
+
+
+.message {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  background-color: #5d5f632f !important; /* Cyan background */
+  border-radius: 5px;
+  
+}
+
+.message strong {
+  color: #bbec32;
+}
+
+
+
+.user-list {
+  background-color: #212223;
+  padding: 1rem;
+  border-radius: 8px;
+  height: 400px;
+  overflow-y: auto;
+}
+
+.user-list h3 {
+  color: #c5cce3;
+}
+
+.user-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-list li {
+  margin: 0.5rem 0;
+}

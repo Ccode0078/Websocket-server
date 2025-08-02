@@ -1,0 +1,16 @@
+# === BACKEND (Java/Spring Boot) ===
+/backend/target/
+/backend/.idea/
+/backend/.classpath
+/backend/.project
+/backend/.settings/
+
+# === FRONTEND (React) ===
+/frontend/cd-chat-client/node_modules/
+/frontend/cd-chat-client/build/
+/frontend/cd-chat-client/.env
+/frontend/cd-chat-client/.DS_Store
+
+# === SYSTEM / MISC ===
+*.log
+.DS_Store
