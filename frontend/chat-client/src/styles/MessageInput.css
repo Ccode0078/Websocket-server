@@ -37,7 +37,7 @@
   }
   
   .message.self {
-    background-color: #5865f2; /* Discord blurple */
+    background-color: #e2e2e2; /* Discord blurple */
     color: white;
     text-align: left;
     margin-left: auto;
