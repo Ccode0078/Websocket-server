@@ -1,0 +1,23 @@
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* kill bullets from themes/global CSS */
+.user-list li::marker { content: ""; }
+.user-list li::before { content: none !important; display: none !important; }
+
+.user-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.user-list-item img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}

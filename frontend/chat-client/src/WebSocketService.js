@@ -1,59 +1,75 @@
-// src/WebSocketService.js
+
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 
-let stompClient = null;
+let client = null;
 
 export function connect(username, onMessageReceived, onUserListUpdate) {
-  const socket = new SockJS('http://localhost:8082/ws');
-  stompClient = new Client({
+  const socket = new SockJS('http://localhost:8082/ws'); 
+  client = new Client({
     webSocketFactory: () => socket,
-    debug: str => console.log(str),
+    reconnectDelay: 2000,
+    debug: (msg) => console.log(msg),
     onConnect: () => {
-      console.log('Connected');
+      console.log('[ws] connected');
 
-      // Notify server user connected
-      stompClient.publish({
-        destination: "/app/connect",
-        body: username
+      // tell server we connected (your backend expects a plain string)
+      client.publish({ destination: '/app/connect', body: username });
+
+      // chat messages (includes our avatar control frames)
+      client.subscribe('/topic/messages', (frame) => {
+        const payload = JSON.parse(frame.body); // { user, message, ... }
+        onMessageReceived?.(payload);
       });
 
-      // Handle chat messages
-      stompClient.subscribe('/topic/messages', message => {
-        const payload = JSON.parse(message.body);
-        onMessageReceived(payload);
-      });
-
-      // Handle connected users list
-      stompClient.subscribe('/topic/users', message => {
-        const userList = JSON.parse(message.body);
-        console.log('Connected users:', userList);
-        onUserListUpdate(userList);
+      // connected users list
+      client.subscribe('/topic/users', (frame) => {
+        const list = JSON.parse(frame.body);
+        onUserListUpdate?.(list);
       });
     },
-    onStompError: frame => {
-      console.error('Broker error:', frame.headers['message']);
-    }
+    onStompError: (frame) => {
+      console.error('[ws] broker error:', frame.headers['message'], frame.body);
+    },
   });
 
-  stompClient.activate();
+  client.activate();
 }
 
 export function sendMessage(username, message) {
-  if (stompClient && stompClient.connected) {
-    stompClient.publish({
-      destination: "/app/message",
-      body: JSON.stringify({ user: username, message })
-    });
-  }
+  if (!client || !client.connected) return;
+  client.publish({
+    destination: '/app/message',
+    body: JSON.stringify({ user: username, message }),
+  });
+}
+
+
+export function sendAvatar(username, avatarUrl) {
+  if (!client || !client.connected) return;
+  if (!username || !avatarUrl) return;
+  client.publish({
+    destination: '/app/message',
+    body: JSON.stringify({
+      user: username,
+      message: '__AVATAR__',   // control frame the clients intercept
+      avatar_url: avatarUrl,   // base64 data URL from FilePond
+    }),
+  });
 }
 
 export function disconnect(username) {
-  if (stompClient && stompClient.connected) {
-    stompClient.publish({
-      destination: "/app/disconnect",
-      body: username
-    });
-    stompClient.deactivate();
-  }
+  try {
+    if (client?.connected) {
+      client.publish({ destination: '/app/disconnect', body: username });
+    }
+  } catch {}
+  client?.deactivate();
+  client = null;
 }
+
+export function isConnected() {
+  return !!(client && client.connected);
+}
+
+
