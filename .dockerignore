@@ -2,7 +2,9 @@
 **/.idea
 **/.vscode
 **/.DS_Store
-frontend/node_modules
-frontend/build
-backend/target
-backend/build
+frontend/**/node_modules
+frontend/**/build
+target
+backend/**/target
+backend/**/build
+
